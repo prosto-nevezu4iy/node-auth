@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const { tokenTypes } = require("../config/tokens");
+const mongoose = require('mongoose');
+const { tokenTypes } = require('../config/tokens');
+const { toJSON } = require('./plugins');
 
 const tokenSchema = mongoose.Schema(
   {
@@ -10,16 +11,12 @@ const tokenSchema = mongoose.Schema(
     },
     user: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "User",
+      ref: 'User',
       required: true,
     },
     type: {
       type: String,
-      enum: [
-        tokenTypes.REFRESH,
-        tokenTypes.RESET_PASSWORD,
-        tokenTypes.VERIFY_EMAIL,
-      ],
+      enum: [tokenTypes.REFRESH, tokenTypes.RESET_PASSWORD, tokenTypes.VERIFY_EMAIL],
       required: true,
     },
     expires: {
@@ -36,6 +33,11 @@ const tokenSchema = mongoose.Schema(
   }
 );
 
-const Token = mongoose.model("Token", tokenSchema);
+tokenSchema.plugin(toJSON);
+
+/**
+ * @typedef Token
+ */
+const Token = mongoose.model('Token', tokenSchema);
 
 module.exports = Token;
