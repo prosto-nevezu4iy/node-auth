@@ -21,3 +21,5 @@ deploy:
   provider: heroku
   api_key:
     secure: 'bd528589-0e9e-4d3e-89b1-084685f7b34f'
+  on:
+    branch: main
