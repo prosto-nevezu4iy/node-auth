@@ -7,13 +7,10 @@ cache: npm
 branches:
   only:
     - main
-env:
-  global:
-    - PORT=3000
-    - MONGODB_URL=mongodb://127.0.0.1:27017/node-auth
-    - JWT_SECRET=thisisasamplesecret
-    - JWT_ACCESS_EXPIRATION_MINUTES=30
-    - JWT_REFRESH_EXPIRATION_DAYS=30
 script:
   - npm run lint
   - npm run test
+deploy:
+  provider: heroku
+  api_key:
+    secure: 'bd528589-0e9e-4d3e-89b1-084685f7b34f'
